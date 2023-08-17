@@ -15,6 +15,15 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('registered-companies')" :active="request()->routeIs('registered-companies')">
+                        {{ __('Registered Companies') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('pending-requests')" :active="request()->routeIs('pending-requests')">
+                        {{ __('Pending Requests') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('blacklist')" :active="request()->routeIs('blacklist')">
+                        {{ __('Blacklist Customer') }}
+                    </x-nav-link>
                 </div>
             </div>
 

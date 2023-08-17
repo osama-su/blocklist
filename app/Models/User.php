@@ -26,6 +26,7 @@ class User extends Authenticatable
         'industry',
         'phone_number',
         'national_address',
+        'status',
     ];
 
     /**
@@ -47,4 +48,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function blacklists()
+    {
+        return $this->hasMany(Blacklist::class, 'blacklisted_by');
+    }
 }
