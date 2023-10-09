@@ -17,7 +17,7 @@ class AuthController extends Controller
             'email' => 'required|unique:users|max:255',
             'password' => 'required',
             'registration_number' => 'required',
-            'commercial_number' => 'required',
+            'commercial_name' => 'required',
             'industry' => 'required',
             'phone_number' => 'required',
             'national_address' => 'required',
