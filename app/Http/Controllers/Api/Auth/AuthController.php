@@ -13,7 +13,6 @@ class AuthController extends Controller
     {
         // Validate the request...
         $validated = $request->validate([
-            'name' => 'required|max:255',
             'email' => 'required|unique:users|max:255',
             'password' => 'required',
             'registration_number' => 'required',
@@ -24,6 +23,8 @@ class AuthController extends Controller
         ]);
 
         $validated['password'] = bcrypt($validated['password']);
+
+        $validated['name'] = $validated['commercial_name'];
 
         $user = User::create($validated);
 
