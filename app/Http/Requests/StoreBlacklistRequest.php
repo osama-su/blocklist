@@ -27,13 +27,8 @@ class StoreBlacklistRequest extends FormRequest
             'phone_number' => 'required|string',
             'rate' => 'required|int|min:1|max:5',
             'reason' => 'required|string',
-            'photo_one' => 'nullable|image',
-            'photo_two' => 'nullable|image',
-            'photo_three' => 'nullable|image',
-            'photo_four' => 'nullable|image',
-            'photo_five' => 'nullable|image',
-            'photo_six' => 'nullable|image',
-
+            'photos' => 'required|array|min:1|max:6',
+            'photos.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 }

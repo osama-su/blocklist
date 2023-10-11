@@ -20,12 +20,7 @@ return new class extends Migration
             $table->string('rate');
             $table->string('reason');
             // photos
-            $table->string('photo_one')->nullable();
-            $table->string('photo_two')->nullable();
-            $table->string('photo_three')->nullable();
-            $table->string('photo_four')->nullable();
-            $table->string('photo_five')->nullable();
-            $table->string('photo_six')->nullable();
+            $table->string('photos')->nullable();
             $table->timestamps();
         });
     }

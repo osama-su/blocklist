@@ -36,24 +36,11 @@ class BlacklistController extends Controller
     {
         $data = $request->validated();
         $data['blacklisted_by'] = auth()->user()->id;
-        if ($request->hasFile('photo_1')) {
-            $data['photo_1'] = uploadFile($request->file('photo_1'), 'blacklist');
+
+        foreach ($data['photos'] as $key => $photo) {
+            $data['photos'][$key] = uploadFile($photo, 'blacklist');
         }
-        if ($request->hasFile('photo_2')) {
-            $data['photo_2'] = uploadFile($request->file('photo_2'), 'blacklist');
-        }
-        if ($request->hasFile('photo_3')) {
-            $data['photo_3'] = uploadFile($request->file('photo_3'), 'blacklist');
-        }
-        if ($request->hasFile('photo_4')) {
-            $data['photo_4'] = uploadFile($request->file('photo_4'), 'blacklist');
-        }
-        if ($request->hasFile('photo_5')) {
-            $data['photo_5'] = uploadFile($request->file('photo_5'), 'blacklist');
-        }
-        if ($request->hasFile('photo_6')) {
-            $data['photo_6'] = uploadFile($request->file('photo_6'), 'blacklist');
-        }
+
         $blacklist = Blacklist::create($data);
 
         return response()->json($blacklist);

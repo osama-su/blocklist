@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use function Pest\Laravel\json;
 
 class Blacklist extends Model
 {
@@ -17,12 +18,11 @@ class Blacklist extends Model
         'phone_number',
         'rate',
         'reason',
-        'photo_one',
-        'photo_two',
-        'photo_three',
-        'photo_four',
-        'photo_five',
-        'photo_six',
+        'photos',
+    ];
+
+    protected $casts = [
+        'photos' => 'array',
     ];
 
 
@@ -31,49 +31,12 @@ class Blacklist extends Model
         return $this->belongsTo(User::class, 'blacklisted_by');
     }
 
-
-    protected function photoOne(): Attribute
+    public function photos(): Attribute
     {
-        return Attribute::make(
-            get: fn ($value) => asset(getImagePath($value)),
-        );
+        return Attribute::make(get: function ($value) {
+            return array_map(getImagePath(...), json_decode($value));
+        });
     }
-
-    protected function photoTwo(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => asset(getImagePath($value)),
-        );
-    }
-
-    protected function photoThree(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => asset(getImagePath($value)),
-        );
-    }
-
-    protected function photoFour(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => asset(getImagePath($value)),
-        );
-    }
-
-protected function photoFive(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => asset(getImagePath($value)),
-        );
-    }
-
-    protected function photoSix(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => asset(getImagePath($value)),
-        );
-    }
-
 
 
 
