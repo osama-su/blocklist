@@ -6,27 +6,43 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBlacklistRequest;
 use App\Http\Requests\UpdateBlacklistRequest;
 use App\Models\Blacklist;
+use Illuminate\Http\Request;
 
 class BlacklistController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $blacklists = Blacklist::where('blacklisted_by', auth()->user()->id)->paginate(10);
+        $blacklists = Blacklist::where('blacklisted_by', auth()->user()->id);
+        $blacklists->when(request()->filled('search'), static function ($query) {
+            $query->where('name', 'like', "%{request()->get('search')}%")
+                ->orWhere('id_number', 'like', "%{request()->get('search')}%")
+                ->orWhere('phone_number', 'like', "%{request()->get('search')}%");
+        });
 
-        return response()->json($blacklists);
+        return response()->json([
+            'data' => $blacklists->get(),
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function all()
+    public function all(Request $request)
     {
-        $blacklists = Blacklist::paginate(10);
+        $blacklists = Blacklist::query();
+        $blacklists->when($request->filled('search'), static function ($query) use ($request) {
+                $query->where('name', 'like', "%{$request->get('search')}%")
+                    ->orWhere('id_number', 'like', "%{$request->get('search')}%")
+                    ->orWhere('phone_number', 'like', "%{$request->get('search')}%");
+            });
 
-        return response()->json($blacklists);
+
+        return response()->json([
+            'data' => $blacklists->get(),
+            ]);
     }
 
     /**
