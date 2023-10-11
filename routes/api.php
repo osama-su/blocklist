@@ -40,9 +40,9 @@ Route::group([
     Route::get('/', [BlacklistController::class, 'index']);
     Route::get('/all', [BlacklistController::class, 'all']);
     Route::post('/', [BlacklistController::class, 'store']);
-    Route::get('/{id}', [BlacklistController::class, 'show']);
-    Route::put('/{id}', [BlacklistController::class, 'update']);
-    Route::delete('/{id}', [BlacklistController::class, 'destroy']);
+    Route::get('/{blacklist}', [BlacklistController::class, 'show']);
+    Route::put('/{blacklist}', [BlacklistController::class, 'update']);
+    Route::delete('/{blacklist}', [BlacklistController::class, 'destroy']);
 });
 
 

@@ -67,7 +67,9 @@ class BlacklistController extends Controller
      */
     public function show(Blacklist $blacklist)
     {
-        //
+        return response()->json([
+            'data' => $blacklist,
+        ]);
     }
 
     /**
@@ -83,7 +85,17 @@ class BlacklistController extends Controller
      */
     public function update(UpdateBlacklistRequest $request, Blacklist $blacklist)
     {
-        //
+        $data = $request->validated();
+
+        if (isset($data['photos'])) {
+            foreach ($data['photos'] as $key => $photo) {
+                $data['photos'][$key] = uploadFile($photo, 'blacklist');
+            }
+        }
+
+        $blacklist->update($data);
+
+        return response()->json($blacklist);
     }
 
     /**
@@ -91,6 +103,7 @@ class BlacklistController extends Controller
      */
     public function destroy(Blacklist $blacklist)
     {
-        //
+        $blacklist->delete();
+        return response()->json(['message' => 'Blacklist deleted successfully.'], 200);
     }
 }
